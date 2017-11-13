@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<bean id="dataProfilingBean" class="com.namics.oss.spring.profiling.aspects.DataProfilingAspect"/>
+	<bean id="timeProfilingBean" class="com.namics.oss.spring.profiling.aspects.TimeProfilingAspect"/>
+
+	<aop:config>
+		<aop:aspect id="dataProfilingAspect" ref="dataProfilingBean">
+			<aop:pointcut id="dataProfilingAspectPointcut" expression="execution(* com.namics.commons.*.*(..))"/>
+			<aop:around pointcut-ref="dataProfilingAspectPointcut" method="profile"/>
+		</aop:aspect>
+
+		<aop:aspect id="timeProfilingAspect" ref="timeProfilingBean">
+			<aop:pointcut id="timeProfilingAspectPointcut" expression="execution(* com.namics.commons.*.*(..))"/>
+			<aop:around pointcut-ref="timeProfilingAspectPointcut" method="profile"/>
+		</aop:aspect>
+	</aop:config>
+</beans>
