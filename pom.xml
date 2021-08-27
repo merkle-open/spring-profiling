@@ -5,7 +5,7 @@
 
 	<groupId>com.namics.oss.spring.profiling</groupId>
 	<artifactId>spring-profiling</artifactId>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1.1</version>
 
 	<name>${project.artifactId}</name>
 	<description>Small but useful library providing converter APIs and default implementations for easy and reliable conversion of objects.
