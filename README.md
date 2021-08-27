@@ -20,7 +20,7 @@ The module uses @AspectJ and Spring provides configuration help for simplified c
 	<dependency>
 		<groupId>com.namics.oss.spring.profiling</groupId>
 		<artifactId>spring-profiling</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>
 	
 ### Requirements	
@@ -63,7 +63,7 @@ Required Dependency
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-context</artifactId>
-		<version>4.2.0.RELEASE</version>
+		<version>1.1.0</version>
 	</dependency>
 
 Profiling to non-public methods is only possible with compile or loadtime weaving (see AspectJ and CGLIB).
@@ -140,7 +140,7 @@ Required Dependency
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>4.0.0.RELEASE</version>
+            <version>1.1.0</version>
         </dependency>
 
 Configuration
