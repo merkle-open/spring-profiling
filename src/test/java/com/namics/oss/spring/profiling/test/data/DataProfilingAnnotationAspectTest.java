@@ -5,18 +5,18 @@
 package com.namics.oss.spring.profiling.test.data;
 
 import com.namics.oss.spring.profiling.test.TestConfig;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.easymock.EasyMock.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * DataProfilingAnnotationAspectTest.
@@ -24,10 +24,10 @@ import static org.junit.Assert.assertEquals;
  * @author aschaefer
  * @since 30.01.14 11:00
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
 @EnableAspectJAutoProxy
-public class DataProfilingAnnotationAspectTest {
+class DataProfilingAnnotationAspectTest {
 
 	@Autowired
 	Logger logger;
@@ -38,18 +38,18 @@ public class DataProfilingAnnotationAspectTest {
 	@Autowired
 	DataMethodLevelAnnotationBean methodLevel;
 
-	@Before
-	public void resetMocks() {
+	@BeforeEach
+	void resetMocks() {
 		reset(logger);
 	}
 
-	@After
-	public void verifyMocks() {
+	@AfterEach
+	void verifyMocks() {
 		verify(logger);
 	}
 
 	@Test
-	public void testClassLevelTimeProfiling() {
+	void testClassLevelTimeProfiling() {
 		expect(logger.isDebugEnabled()).andReturn(true);
 		logger.debug(anyObject(String.class), anyObject(), anyObject(), anyObject(), anyObject());
 		replay(logger);
@@ -57,7 +57,7 @@ public class DataProfilingAnnotationAspectTest {
 	}
 
 	@Test
-	public void testMethodLevelTimeProfiling() {
+	void testMethodLevelTimeProfiling() {
 		expect(logger.isDebugEnabled()).andReturn(true);
 		logger.debug(anyObject(String.class), anyObject(), anyObject(), anyObject(), anyObject());
 		replay(logger);

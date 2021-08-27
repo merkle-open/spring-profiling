@@ -6,16 +6,16 @@ package com.namics.oss.spring.profiling.test.time;
 
 import com.namics.oss.spring.profiling.test.TestConfig;
 import org.easymock.Capture;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.easymock.EasyMock.*;
 
@@ -25,10 +25,10 @@ import static org.easymock.EasyMock.*;
  * @author aschaefer
  * @since 30.01.14 11:00
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
 @EnableAspectJAutoProxy
-public class TimeProfilingAnnotationAspectTest {
+class TimeProfilingAnnotationAspectTest {
 	private static final Logger LOG = LoggerFactory.getLogger(TimeProfilingAnnotationAspectTest.class);
 
 	@Autowired
@@ -40,20 +40,20 @@ public class TimeProfilingAnnotationAspectTest {
 	@Autowired
 	TimeMethodLevelAnnotationBean methodLevel;
 
-	@Before
-	public void resetMocks() {
+	@BeforeEach
+	void resetMocks() {
 		reset(logger);
 	}
 
-	@After
-	public void verifyMocks() {
+	@AfterEach
+	void verifyMocks() {
 		verify(logger);
 	}
 
 	@Test
-	public void testClassLevelTimeProfiling() {
+	void testClassLevelTimeProfiling() {
 		expect(logger.isDebugEnabled()).andReturn(true);
-		Capture<String> capture = new Capture<>();
+		Capture<String> capture = Capture.newInstance();
 		logger.debug(capture(capture));
 		replay(logger);
 		classLevel.someMethodTakingSomeTime();
@@ -61,9 +61,9 @@ public class TimeProfilingAnnotationAspectTest {
 	}
 
 	@Test
-	public void testMethodLevelTimeProfiling() {
+	void testMethodLevelTimeProfiling() {
 		expect(logger.isDebugEnabled()).andReturn(true);
-		Capture<String> capture = new Capture<>();
+		Capture<String> capture = Capture.newInstance();
 		logger.debug(capture(capture));
 		replay(logger);
 		methodLevel.someMethodTakingSomeTime();
